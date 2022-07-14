@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela inicial</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+   
+    <div class="botoes">
+        <p>Selecione o seu setor</p>
+        <button onclick="adm()">ADM</button>
+        <button onclick="entrega()">ENTREGA</button>
+        <BUtton onclick="puxada()">PUXADA</BUtton>
+        <button onclick="vendas()">VENDAS</button>
+    </div>
+    <script>
+        function vendas() {
+            window.location.href = "intermedVendas.html"
+        }
+
+        function entrega() { 
+            window.location.href = "entrega.html"
+        }
+
+        function puxada() {
+            window.location.href = "puxada.html"
+        }
+
+        function adm() {
+            window.location.href = 'adm.html'
+        }
+
+    </script>
+</body>
+</html>

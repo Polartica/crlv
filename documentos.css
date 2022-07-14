@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    font-size:  30px;
+}
+
+button {
+    margin: 20px;
+    padding: 20px;
+}
+
+select {
+    width: 250px;
+    height: 60px;
+
+    justify-content: center;
+}

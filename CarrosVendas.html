@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="documentos.css">
+</head>
+<body>
+
+    <p>Gerador de Documento</p>
+
+    <select name="carros-vendas" id="carros">
+        <option value="IVI8685.pdf">IVI8685</option>
+        <option value="IZE6H43.pdf">IZE6H43</option>
+        <option value="IZE6H44.pdf">IZE6H44</option>
+        <option value="IZE6I79.pdf">IZE6I79</option>
+    </select>
+
+    <script>
+        function pegarValor() {
+            var e = document.getElementById("carros")
+            var valor = e.value;
+    
+            console.log(valor)
+    
+            documento = document.createElement('a');
+            documento.innerHTML = "Documento - Clique AQUI"
+
+            caminho = "Vendas\\Carros\\"
+            link = `${caminho}${valor} `
+
+            documento.setAttribute('href', link);
+            documento.setAttribute('title', valor);
+
+            document.body.appendChild(documento)
+
+    
+        }
+    </script>
+    
+    <button onclick="pegarValor()">Gerar Documento</button>
+    
+</body>
+</html>
