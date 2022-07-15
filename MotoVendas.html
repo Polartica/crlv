@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adm</title>
     <link rel="stylesheet" href="documentos.css">
+    <link rel="stylesheet" href="botao.css">
+    <script src="./script.js"></script>
 </head>
 <body>
 
     <p>Gerador de Documento</p>
 
-    <select name="carros-vendas" id="carros">
+    <select class="menu" name="carros-vendas" id="carros">
         <option value="ISY7098.pdf">ISY7098</option>
         <option value="ISY7132.pdf">ISY7132</option>
         <option value="ISY7138.pdf">ISY7138</option>
@@ -38,29 +40,8 @@
         <option value="JBI6G69.pdf">JBI6G69</option>
     </select>
 
-    <script>
-        function pegarValor() {
-            var e = document.getElementById("carros")
-            var valor = e.value;
     
-            console.log(valor)
-    
-            documento = document.createElement('a');
-            documento.innerHTML = "Documento - Clique AQUI"
-
-            caminho = "Vendas\\Motos\\"
-            link = `${caminho}${valor} `
-
-            documento.setAttribute('href', link);
-            documento.setAttribute('title', valor);
-
-            document.body.appendChild(documento)
-
-    
-        }
-    </script>
-    
-    <button onclick="pegarValor()">Gerar Documento</button>
+    <button class="button-4" onclick="pegarValor('carros', 'Vendas\\Motos\\')">Gerar Documento</button>
     
 </body>
 </html>

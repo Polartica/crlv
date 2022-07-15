@@ -5,17 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela inicial</title>
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="botao.css">
 </head>
 <body>
 
-   
-    <div class="botoes">
+    <header>
+        <img src="./logo.png" alt="Logo Polartica" srcset="">
         <p>Selecione o seu setor</p>
-        <button onclick="adm()">ADM</button>
-        <button onclick="entrega()">ENTREGA</button>
-        <BUtton onclick="puxada()">PUXADA</BUtton>
-        <button onclick="vendas()">VENDAS</button>
+    </header>
+
+    <div class="botoes">
+        
+        <button class="button-4" onclick="adm()">ADM</button>
+        <button class="button-4" onclick="entrega()">ENTREGA</button>
+        <BUtton class="button-4" onclick="puxada()">PUXADA</BUtton>
+        <button class="button-4" onclick="vendas()">VENDAS</button>
     </div>
+
+
+    <footer style="position: absolute; bottom: 0;">
+        <p style="font-size: 10px; padding: 0;">Desenvolvido por Eduarda Monteblanco</p>
+        <p style="font-size: 10px; padding: 0;">Departamento de TI - Polartica </p>
+    </footer>
     <script>
         function vendas() {
             window.location.href = "intermedVendas.html"

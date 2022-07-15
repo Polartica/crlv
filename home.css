@@ -1,7 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 * {
-    font-family:'Roboto';
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 20%;
+}
+
+img {
+    max-width: 72px;
+    max-height: 72px;
 }
 .botoes { 
     display: flex;
@@ -24,4 +37,14 @@ button {
 p {
     font-size: 22px;
     font-weight: 600;
+}
+
+@media only screen and (min-width: 600px) {
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left: 470px;
+        margin-right: 560px;
+    }
 }
