@@ -38,13 +38,3 @@ p {
     font-size: 22px;
     font-weight: 600;
 }
-
-@media only screen and (min-width: 600px) {
-    header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-left: 470px;
-        margin-right: 560px;
-    }
-}
