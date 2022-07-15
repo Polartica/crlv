@@ -8,8 +8,8 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 5%;
-    margin-right: 20%;
+    /* margin-left: 5%;
+    margin-right: 20%; */
 }
 
 img {
