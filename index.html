@@ -4,23 +4,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela inicial</title>
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="botao.css">
+
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/botao.css">
 </head>
 <body>
-
+    <div class="nav-bar">
+        
+    </div>
     <header style="align-items: center; justify-content:center">
         <img style="margin-right: 15px" src="./logo.png" alt="Logo Polartica" srcset="">
-        <p >Selecione o seu setor</p>
+        <p class="title">Selecione o seu setor</p>
         
     </header>
 
     <div class="botoes">
-        
-        <button class="button-4" onclick="adm()">ADM</button>
-        <button class="button-4" onclick="entrega()">ENTREGA</button>
-        <BUtton class="button-4" onclick="puxada()">PUXADA</BUtton>
-        <button class="button-4" onclick="vendas()">VENDAS</button>
+        <button class="button-4" onclick="window.location.href = 'adm.html'">ADM</button>
+        <button class="button-4" onclick="window.location.href = 'entrega.html'">ENTREGA</button>
+        <BUtton class="button-4" onclick="window.location.href = 'puxada.html'">PUXADA</BUtton>
+        <button class="button-4" onclick= 'window.location.href = "intermedVendas.html"'>VENDAS</button>
     </div>
 
 
@@ -28,23 +30,5 @@
         <p style="font-size: 10px; padding: 0;">Desenvolvido por Eduarda Monteblanco</p>
         <p style="font-size: 10px; padding: 0;">Departamento de TI - Polartica </p>
     </footer>
-    <script>
-        function vendas() {
-            window.location.href = "intermedVendas.html"
-        }
-
-        function entrega() { 
-            window.location.href = "entrega.html"
-        }
-
-        function puxada() {
-            window.location.href = "puxada.html"
-        }
-
-        function adm() {
-            window.location.href = 'adm.html'
-        }
-
-    </script>
 </body>
 </html>
