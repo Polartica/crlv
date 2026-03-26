@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // form elements
     const repoInput = document.getElementById('repo-input');
     const tokenInput = document.getElementById('token-input');
-    
+
     repoInput.value = repo;
-    if(token) tokenInput.value = token;
+    if (token) tokenInput.value = token;
 
     async function loadDataFromGithub() {
         loginError.innerText = "Carregando banco de dados...";
@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
         loginError.style.color = "var(--primary)";
 
         try {
-            const response = await fetch(`https://api.github.com/repos/${repo}/contents/assets/js/data.js?ref=${branch}`, {
+            const response = await fetch(`https://api.github.com/repos/${repo}/assets/js/data.js?ref=${branch}`, {
                 headers: {
-                    'Authorization': `token ${token}`,
+                    'Authorization': `Bearer ${token}`,
                     'Accept': 'application/vnd.github.v3+json'
                 }
             });
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const refData = await response.json();
             dataSha = refData.sha;
-            
+
             // Decodes b64 content using pure JS (handles unicode safely)
             const decodedStr = decodeURIComponent(escape(atob(refData.content)));
             // Remove prefixo para parsear JSON
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLogin.addEventListener('click', () => {
         repo = repoInput.value.trim();
         token = tokenInput.value.trim();
-        
+
         if (!repo || !token) {
             loginError.innerText = "Preencha ambos os campos.";
             loginError.classList.remove('hidden');
@@ -86,10 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Admin Funcs ---
-    
+
     const filterSetor = document.getElementById('filter-setor');
     const tableBody = document.getElementById('table-body');
-    
+
     filterSetor.addEventListener('change', (e) => {
         renderTable(e.target.value);
     });
@@ -99,10 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentData || !currentData[setorKey]) return;
 
         const itens = currentData[setorKey].itens;
-        
+
         itens.forEach((item, index) => {
             const tr = document.createElement('tr');
-            
+
             const pdfLink = item.pdf ? `<a href="${item.pdf}" target="_blank">Ver</a>` : '-';
 
             tr.innerHTML = `
@@ -128,25 +128,25 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.deleteItem = async (setorKey, index) => {
-        if(!confirm("Atenção: Ao excluir, ele é removido do data.json (o arquivo em si não é exlcuído do Github, apenas da lista central). Confirmar?")) return;
-        
+        if (!confirm("Atenção: Ao excluir, ele é removido do data.json (o arquivo em si não é exlcuído do Github, apenas da lista central). Confirmar?")) return;
+
         const deleteStatus = document.getElementById('delete-status');
         deleteStatus.innerText = "Removendo do banco de dados...";
-        
+
         currentData[setorKey].itens.splice(index, 1);
-        
+
         try {
             await commitDataJson();
             renderTable(filterSetor.value);
             deleteStatus.innerText = "Removido com sucesso.";
-            setTimeout(() => deleteStatus.innerText="", 3000);
+            setTimeout(() => deleteStatus.innerText = "", 3000);
         } catch (err) {
             deleteStatus.innerText = "Erro ao excluir: " + err.message;
         }
     };
 
     // -- Upload Logic --
-    
+
     const btnSave = document.getElementById('btn-save');
     const saveStatus = document.getElementById('save-status');
     const formSetor = document.getElementById('form-setor');
@@ -167,13 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let fileSha = null;
         try {
             const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`, {
-                headers: { 'Authorization': `token ${token}` }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             if (getRes.ok) {
                 const existingInfo = await getRes.json();
                 fileSha = existingInfo.sha;
             }
-        } catch (e) {} // ignore 404
+        } catch (e) { } // ignore 404
 
         const payload = {
             message: `Auto-upload CMS: ${path}`,
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // encode keeping utf8 support and JS wrapper
         const jsonStr = "window.crlvData = " + JSON.stringify(currentData, null, 2) + ";";
         const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
-        
+
         const payload = {
             message: `Admin update CMS data`,
             content: base64Content,
@@ -232,14 +232,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         btnSave.disabled = true;
         saveStatus.style.color = "var(--primary)";
-        
+
         try {
             // Find if item exists
             let itemIndex = currentData[setor].itens.findIndex(i => i.id === id);
             let item = itemIndex !== -1 ? currentData[setor].itens[itemIndex] : { id, descricao: desc, pdf: "" };
 
             item.descricao = desc;
-            
+
             // Upload PDF if present
             if (pdfFile) {
                 saveStatus.innerText = "Fazendo upload do PDF (-/+) ...";
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             saveStatus.innerText = "Atualizando o banco de dados principal (data.js)...";
-            
+
             if (itemIndex !== -1) {
                 currentData[setor].itens[itemIndex] = item;
             } else {
@@ -263,15 +263,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             saveStatus.style.color = "green";
             saveStatus.innerText = "✅ Salvo com Sucesso! Aguarde alguns minutos para o site online atualizar.";
-            
+
             // clear form
             formId.value = '';
             formDesc.value = '';
             formPdf.value = '';
-            
+
             renderTable(filterSetor.value);
 
-            setTimeout(()=> { saveStatus.innerText = ""; btnSave.disabled = false; }, 4000);
+            setTimeout(() => { saveStatus.innerText = ""; btnSave.disabled = false; }, 4000);
 
         } catch (err) {
             saveStatus.style.color = "red";
@@ -281,11 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function getFolderPrefix(setor) {
-        if(setor === 'adm') return "./ADM/";
-        if(setor === 'entrega') return "./Entrega/";
-        if(setor === 'puxada') return "./Puxada/";
-        if(setor === 'vendas_carros') return "./Vendas/Carros/";
-        if(setor === 'vendas_motos') return "./Vendas/Motos/";
+        if (setor === 'adm') return "./ADM/";
+        if (setor === 'entrega') return "./Entrega/";
+        if (setor === 'puxada') return "./Puxada/";
+        if (setor === 'vendas_carros') return "./Vendas/Carros/";
+        if (setor === 'vendas_motos') return "./Vendas/Motos/";
         return "./";
     }
 
