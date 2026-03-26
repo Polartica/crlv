@@ -3,12 +3,6 @@ window.crlvData = {
     "titulo": "Administração",
     "itens": [
       {
-        "id": "IVI8685",
-        "descricao": "Carro Administrativo - IVI8685",
-        "imagem": "",
-        "pdf": "./ADM/IVI8685.pdf"
-      },
-      {
         "id": "JBX6E78",
         "descricao": "Carro Administrativo - JBX6E78",
         "imagem": "",
