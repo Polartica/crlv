@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frota - Veículos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+<body>
+
+    <div class="nav-bar">
+        <div class="clicked" onclick="window.location.href='index.html'">
+            <span>← VOLTAR</span>
+        </div>
+        <div style="font-weight: 500; color: var(--primary);">
+            Setor: <span id="setor-nome">Carregando...</span>
+        </div>
+    </div>
+
+    <div class="container" style="padding-top: 2rem;">
+        
+        <div id="loading" class="text-center" style="padding: 3rem; color: var(--text-muted);">
+            Carregando lista de veículos...
+        </div>
+
+        <div id="grid-veiculos" class="card-grid hidden">
+            <!-- Cards injetados via JS -->
+        </div>
+        
+        <div id="error-msg" class="hidden text-center" style="color: #dc3545; padding: 2rem;">
+            Ocorreu um erro ao carregar os dados ou setor não encontrado.
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Departamento de TI - Polartica </p>
+    </footer>
+
+    <script src="./assets/js/lista.js"></script>
+</body>
+</html>

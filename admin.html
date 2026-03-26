@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrador - CRLV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <style>
+        .login-box {
+            max-width: 400px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-bar">
+        <div class="clicked" onclick="window.location.href='index.html'">
+            <span>← VOLTAR PRO SITE</span>
+        </div>
+        <div>
+            Painel CMS
+            <button id="btn-logout" class="btn btn-secondary hidden" style="padding: 0.3rem 0.8rem; margin-left:1rem;">Sair</button>
+        </div>
+    </div>
+
+    <!-- TELA DE LOGIN GITHUB -->
+    <div id="login-view" class="container login-box">
+        <h2 class="title" style="margin-bottom: 1rem;">Autenticação Github</h2>
+        <p class="text-muted" style="margin-bottom: 2rem;">Entre com suas credenciais para gerenciar os documentos e sincronizar diretamente.</p>
+        
+        <div class="form-group text-left" style="text-align: left;">
+            <label>Repositório (Ex: Polartica/crlv)</label>
+            <input type="text" id="repo-input" class="form-control" value="Polartica/crlv" placeholder="usuario/repo">
+        </div>
+        
+        <div class="form-group text-left" style="text-align: left;">
+            <label>GitHub Personal Access Token (PAT)</label>
+            <input type="password" id="token-input" class="form-control" placeholder="ghp_................">
+            <small class="text-muted" style="display:block; margin-top:5px; font-size:0.8rem;">O Token não é enviado para nenhum servidor além do próprio Github. Fica salvo apenas no seu navegador.</small>
+        </div>
+
+        <button id="btn-login" class="btn" style="width: 100%;">Conectar e Carregar Banco</button>
+        <div id="login-error" class="hidden" style="color:red; margin-top: 1rem;"></div>
+    </div>
+
+    <!-- TELA DO PAINEL DE GERENCIAMENTO -->
+    <div id="admin-view" class="container admin-panel hidden" style="padding-top: 2rem;">
+        
+        <!-- Bloco Adicionar Novo -->
+        <div class="admin-section">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: var(--primary);">
+                Adicionar / Substituir Registro
+            </h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label>Setor</label>
+                    <select id="form-setor" class="form-control">
+                        <option value="adm">Administração</option>
+                        <option value="entrega">Entrega</option>
+                        <option value="puxada">Puxada</option>
+                        <option value="vendas_carros">Vendas - Carros</option>
+                        <option value="vendas_motos">Vendas - Motos</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>ID / Placa (Ex: ISY7098)</label>
+                    <input type="text" id="form-id" class="form-control" placeholder="ABC1D23">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Descrição Formatada (Ex: Caminhão ABC1D23 modelo XX)</label>
+                <input type="text" id="form-desc" class="form-control" placeholder="Descrição da Frota/Veículo">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="border: 1px dashed var(--border); padding: 1rem; border-radius: var(--radius); background: #f9f9f9;">
+                    <label style="font-weight: 600;">📁 Upload de PDF (Opcional)</label>
+                    <input type="file" id="form-pdf" accept="application/pdf" style="margin-top: 0.5rem; width:100%;">
+                    <small style="display:block; margin-top:0.5rem; color:var(--text-muted);">
+                        Se não enviar, salvará apenas imagem/descrição ou usará o existente.
+                    </small>
+                </div>
+                
+                <div style="border: 1px dashed var(--border); padding: 1rem; border-radius: var(--radius); background: #f9f9f9;">
+                    <label style="font-weight: 600;">🖼️ Upload Imagem (Card)</label>
+                    <input type="file" id="form-img" accept="image/png, image/jpeg, image/jpg" style="margin-top: 0.5rem; width:100%;">
+                    <small style="display:block; margin-top:0.5rem; color:var(--text-muted);">
+                        A resolução não deve ser tão grande pra não pesar no seu github.
+                    </small>
+                </div>
+            </div>
+
+            <button id="btn-save" class="btn" style="width: 100%;">💾 Gravar Alterações (Commit para GitHub)</button>
+            
+            <!-- STATUS DO UPLOAD -->
+            <div id="save-status" style="margin-top: 1rem; font-weight: 500;"></div>
+        </div>
+
+        <!-- Bloco Listagem por Setor -->
+        <div class="admin-section">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+                <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--primary);">Registros Cadastrados</h2>
+                
+                <select id="filter-setor" class="form-control" style="width: 250px;">
+                    <option value="adm">Administração</option>
+                    <option value="entrega">Entrega</option>
+                    <option value="puxada">Puxada</option>
+                    <option value="vendas_carros">Vendas - Carros</option>
+                    <option value="vendas_motos">Vendas - Motos</option>
+                </select>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Placa / ID</th>
+                            <th>Descrição</th>
+                            <th>PDF</th>
+                            <th>Img</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Itens do JSON -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="delete-status" style="margin-top: 1rem; font-weight: 500; color:red;"></div>
+        </div>
+
+    </div>
+
+    <script src="./assets/js/admin.js"></script>
+</body>
+</html>

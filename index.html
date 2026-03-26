@@ -1,34 +1,36 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela inicial</title>
-
-    <link rel="stylesheet" href="./assets/css/home.css">
-    <link rel="stylesheet" href="./assets/css/botao.css">
+    <title>Início - Documentos Veiculares</title>
+    <!-- Fonte Google Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 <body>
-    <div class="nav-bar">
-        
-    </div>
-    <header style="align-items: center; justify-content:center">
-        <img style="margin-right: 15px" src="./logo.png" alt="Logo Polartica" srcset="">
-        <p class="title">Selecione o seu setor</p>
-        
+    
+    <header>
+        <img src="./logo.png" alt="Logo Polartica">
+        <h1 class="title">Sistema de Emissão CRLV</h1>
+        <p class="text-muted">Selecione o setor desejado para listar os documentos disponíveis.</p>
     </header>
 
-    <div class="botoes">
-        <button class="button-4" onclick="window.location.href = 'adm.html'">ADM</button>
-        <button class="button-4" onclick="window.location.href = 'entrega.html'">ENTREGA</button>
-        <BUtton class="button-4" onclick="window.location.href = 'puxada.html'">PUXADA</BUtton>
-        <button class="button-4" onclick= 'window.location.href = "intermedVendas.html"'>VENDAS</button>
+    <div class="container">
+        <div class="botoes-grid text-center">
+            <a href="lista.html?setor=adm" class="btn">ADMINISTRAÇÃO</a>
+            <a href="lista.html?setor=entrega" class="btn">ENTREGA</a>
+            <a href="lista.html?setor=puxada" class="btn">PUXADA</a>
+            <a href="lista.html?setor=vendas_carros" class="btn">VENDAS (Carros)</a>
+            <a href="lista.html?setor=vendas_motos" class="btn">VENDAS (Motos)</a>
+            <a href="admin.html" class="btn btn-secondary" style="margin-top: 2rem;">⚙️ Painel de Gerenciamento</a>
+        </div>
     </div>
 
-
-    <footer style="position: absolute; bottom: 0;">
-        <p style="font-size: 10px; padding: 0;">Desenvolvido por Eduarda Monteblanco</p>
-        <p style="font-size: 10px; padding: 0;">Departamento de TI - Polartica </p>
+    <footer>
+        <p>Desenvolvido pelo Departamento de TI - Polartica</p>
     </footer>
+
 </body>
 </html>
