@@ -4,7 +4,7 @@ window.crlvData = {
     "itens": [
       {
         "id": "JBX6E78",
-        "descricao": "Carro Administrativo - JBX6E78",
+        "descricao": "Renault Duster - JBX6E78",
         "imagem": "",
         "pdf": "./ADM/JBX6E78.pdf"
       }
