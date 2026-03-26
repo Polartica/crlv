@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loginError.style.color = "var(--primary)";
 
         try {
-            const response = await fetch(`https://api.github.com/repos/${repo}/contents/data.json?ref=${branch}`, {
+            const response = await fetch(`https://api.github.com/repos/${repo}/contents/assets/js/data.js?ref=${branch}`, {
                 headers: {
                     'Authorization': `token ${token}`,
                     'Accept': 'application/vnd.github.v3+json'
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                if (response.status === 404) throw new Error("Arquivo data.json não encontrado no repositório.");
+                if (response.status === 404) throw new Error("Arquivo data.js não encontrado no repositório.");
                 if (response.status === 401) throw new Error("Acesso Negado: Token inválido ou expirado.");
                 throw new Error("Erro ao acessar repositório: " + response.statusText);
             }
@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Decodes b64 content using pure JS (handles unicode safely)
             const decodedStr = decodeURIComponent(escape(atob(refData.content)));
-            currentData = JSON.parse(decodedStr);
+            // Remove prefixo para parsear JSON
+            const jsonPart = decodedStr.replace("window.crlvData = ", "").replace(/;\s*$/, "");
+            currentData = JSON.parse(jsonPart);
 
             loginError.classList.add('hidden');
             loginView.classList.add('hidden');
@@ -102,13 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             
             const pdfLink = item.pdf ? `<a href="${item.pdf}" target="_blank">Ver</a>` : '-';
-            const imgPreview = item.imagem ? `<img src="${item.imagem}" style="max-height:30px">` : '-';
 
             tr.innerHTML = `
                 <td><strong>${item.id}</strong></td>
                 <td>${item.descricao}</td>
                 <td>${pdfLink}</td>
-                <td>${imgPreview}</td>
                 <td class="admin-actions">
                     <button class="btn btn-secondary" onclick="editItem('${setorKey}', ${index})" style="color:var(--primary)">✏️</button>
                     <button class="btn btn-danger" onclick="deleteItem('${setorKey}', ${index})">🗑️</button>
@@ -153,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formId = document.getElementById('form-id');
     const formDesc = document.getElementById('form-desc');
     const formPdf = document.getElementById('form-pdf');
-    const formImg = document.getElementById('form-img');
 
     // Convert to base64
     const toBase64 = file => new Promise((resolve, reject) => {
@@ -197,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function commitDataJson() {
-        // encode keeping utf8 support
-        const jsonStr = JSON.stringify(currentData, null, 2);
+        // encode keeping utf8 support and JS wrapper
+        const jsonStr = "window.crlvData = " + JSON.stringify(currentData, null, 2) + ";";
         const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
         
         const payload = {
@@ -208,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sha: dataSha
         };
 
-        const res = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/assets/js/data.js`, {
             method: 'PUT',
             headers: {
                 'Authorization': `token ${token}`,
@@ -228,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = formId.value.trim().toUpperCase();
         const desc = formDesc.value.trim();
         const pdfFile = formPdf.files[0];
-        const imgFile = formImg.files[0];
 
         if (!id || !desc) return alert("ID e Descrição são obrigatórios.");
 
@@ -238,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Find if item exists
             let itemIndex = currentData[setor].itens.findIndex(i => i.id === id);
-            let item = itemIndex !== -1 ? currentData[setor].itens[itemIndex] : { id, descricao: desc, imagem: "", pdf: "" };
+            let item = itemIndex !== -1 ? currentData[setor].itens[itemIndex] : { id, descricao: desc, pdf: "" };
 
             item.descricao = desc;
             
@@ -253,17 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.pdf = `${getFolderPrefix(setor)}${id}.pdf`;
             }
 
-            // Upload Imagem if present
-            if (imgFile) {
-                saveStatus.innerText = "Fazendo upload da Imagem (-/+) ...";
-                const ext = imgFile.name.split('.').pop();
-                let imgPath = `assets/img_autos/${setor}_${id}.${ext}`;
-                const b64 = await toBase64(imgFile);
-                await uplaodFileToGitHub(imgPath, b64);
-                item.imagem = imgPath;
-            }
-
-            saveStatus.innerText = "Atualizando o banco de dados principal (data.json)...";
+            saveStatus.innerText = "Atualizando o banco de dados principal (data.js)...";
             
             if (itemIndex !== -1) {
                 currentData[setor].itens[itemIndex] = item;
@@ -280,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
             formId.value = '';
             formDesc.value = '';
             formPdf.value = '';
-            formImg.value = '';
             
             renderTable(filterSetor.value);
 

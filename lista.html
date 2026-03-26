@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/main.css">
 </head>
+
 <body>
 
     <div class="nav-bar">
@@ -20,7 +22,7 @@
     </div>
 
     <div class="container" style="padding-top: 2rem;">
-        
+
         <div id="loading" class="text-center" style="padding: 3rem; color: var(--text-muted);">
             Carregando lista de veículos...
         </div>
@@ -28,7 +30,7 @@
         <div id="grid-veiculos" class="card-grid hidden">
             <!-- Cards injetados via JS -->
         </div>
-        
+
         <div id="error-msg" class="hidden text-center" style="color: #dc3545; padding: 2rem;">
             Ocorreu um erro ao carregar os dados ou setor não encontrado.
         </div>
@@ -36,9 +38,12 @@
     </div>
 
     <footer>
-        <p>Departamento de TI - Polartica </p>
+        <p>Departamento de TI - Polartica - Eduarda Monteblanco - 2026 </p>
     </footer>
 
+    <!-- Banco de Dados Local injetado como variável -->
+    <script src="./assets/js/data.js"></script>
     <script src="./assets/js/lista.js"></script>
 </body>
+
 </html>

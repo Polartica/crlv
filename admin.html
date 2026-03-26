@@ -78,20 +78,12 @@
                 <input type="text" id="form-desc" class="form-control" placeholder="Descrição da Frota/Veículo">
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="margin-bottom: 1.5rem;">
                 <div style="border: 1px dashed var(--border); padding: 1rem; border-radius: var(--radius); background: #f9f9f9;">
                     <label style="font-weight: 600;">📁 Upload de PDF (Opcional)</label>
                     <input type="file" id="form-pdf" accept="application/pdf" style="margin-top: 0.5rem; width:100%;">
                     <small style="display:block; margin-top:0.5rem; color:var(--text-muted);">
-                        Se não enviar, salvará apenas imagem/descrição ou usará o existente.
-                    </small>
-                </div>
-                
-                <div style="border: 1px dashed var(--border); padding: 1rem; border-radius: var(--radius); background: #f9f9f9;">
-                    <label style="font-weight: 600;">🖼️ Upload Imagem (Card)</label>
-                    <input type="file" id="form-img" accept="image/png, image/jpeg, image/jpg" style="margin-top: 0.5rem; width:100%;">
-                    <small style="display:block; margin-top:0.5rem; color:var(--text-muted);">
-                        A resolução não deve ser tão grande pra não pesar no seu github.
+                        Se não enviar, salvará apenas a descrição ou usará o PDF existente.
                     </small>
                 </div>
             </div>
@@ -123,7 +115,6 @@
                             <th>Placa / ID</th>
                             <th>Descrição</th>
                             <th>PDF</th>
-                            <th>Img</th>
                             <th>Ações</th>
                         </tr>
                     </thead>

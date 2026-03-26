@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const setorParam = urlParams.get('setor');
 
@@ -15,15 +15,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        // Usa timestamp pra evitar cache caso atualizem o github!
-        const response = await fetch(`./data.json?t=${new Date().getTime()}`);
-        
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
+        // Tenta pegar a variavel carregada via tag <script> em data.js
+        const data = window.crlvData;
+
+        if (!data) {
+            throw new Error('Banco de dados JS não encontrado. Arquivo data.js falhou.');
         }
 
-        const data = await response.json();
-        
         const setorData = data[setorParam];
 
         if (!setorData) {
@@ -31,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         setorNomeEl.innerText = setorData.titulo;
-        
+
         if (setorData.itens.length === 0) {
             loadingEl.innerText = "Nenhum documento cadastrado neste setor.";
             return;
@@ -45,53 +43,34 @@ document.addEventListener('DOMContentLoaded', async () => {
             const card = document.createElement('div');
             card.classList.add('card');
 
-            // Header - Imagem do carro (ou default)
-            const imgContainer = document.createElement('div');
-            if (item.imagem) {
-                const img = document.createElement('img');
-                img.src = item.imagem;
-                img.classList.add('card-img');
-                img.alt = item.descricao;
-                // Exibe imagem com fallback para icone placeholder caso quebre
-                img.onerror = function() {
-                    this.parentElement.innerHTML = `<div class="card-img-placeholder">🚗</div>`;
-                }
-                imgContainer.appendChild(img);
-            } else {
-                const placeholder = document.createElement('div');
-                placeholder.classList.add('card-img-placeholder');
-                // Adiciona um ícone baseando no tipo se quisermos, vou usar um veiculo padrao
-                placeholder.innerHTML = '🚗';
-                imgContainer.appendChild(placeholder);
-            }
+            // Header omitido pois as imagens não são mais necessárias
 
             // Body
             const body = document.createElement('div');
             body.classList.add('card-body');
-            
+
             const title = document.createElement('h3');
             title.classList.add('card-title');
             title.innerText = item.id;
-            
+
             const desc = document.createElement('p');
             desc.classList.add('card-text');
             desc.innerText = item.descricao;
 
             const actions = document.createElement('div');
             actions.classList.add('card-actions');
-            
+
             const btn = document.createElement('a');
             btn.classList.add('btn');
             btn.href = item.pdf;
             btn.target = "_blank"; // abre em nova aba
-            btn.innerText = "📄 Imprimir Documento";
+            btn.innerText = "📄 Ver Documento";
 
             actions.appendChild(btn);
             body.appendChild(title);
             body.appendChild(desc);
             body.appendChild(actions);
 
-            card.appendChild(imgContainer);
             card.appendChild(body);
             gridEl.appendChild(card);
         });
@@ -100,6 +79,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("Erro ao carregar dados:", err);
         loadingEl.classList.add('hidden');
         errorEl.classList.remove('hidden');
-        errorEl.innerText = "Falha ao carregar informações da frota.";
+        errorEl.innerText = "Falha ao carregar informações da frota: " + err.message;
     }
 });
