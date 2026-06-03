@@ -48,13 +48,25 @@
   "vendas_carros": {
     "titulo": "Vendas - Carros",
     "itens": [
-      { "id": "IZE6H43", "descricao": "Carro IZE6H43", "imagem": "", "pdf": "./Vendas/Carros/IZE6H43.pdf" },
-      { "id": "IZE6H44", "descricao": "Carro IZE6H44", "imagem": "", "pdf": "./Vendas/Carros/IZE6H44.pdf" },
-      { "id": "IZE6I79", "descricao": "Carro IZE6I79", "imagem": "", "pdf": "./Vendas/Carros/IZE6I79.pdf" },
-      { "id": "IZG5F32", "descricao": "Carro IZG5F32", "imagem": "", "pdf": "./Vendas/Carros/IZG5F32.pdf" },
-      { "id": "JBO0E75", "descricao": "Carro JBO0E75", "imagem": "", "pdf": "./Vendas/Carros/JBO0E75.pdf" },
-      { "id": "JBD6C54", "descricao": "Carro JBD6C54", "imagem": "", "pdf": "./Vendas/Carros/JBD6C54.pdf" },
-      { "id": "TRC8G55", "descricao": "Carro TRC8G55", "imagem": "", "pdf": "./Vendas/Carros/TRC8G55.pdf" }
+      { "id": "IZE6H43", "descricao":"Carro IZE6H43", "imagem": "", "pdf": "./Vendas/Carros/IZE6H43.pdf" },
+      { "id": "IZE6H44", "descricao":"Carro IZE6H44", "imagem": "", "pdf": "./Vendas/Carros/IZE6H44.pdf" },
+      { "id": "IZE6I79", "descricao":"Carro IZE6I79", "imagem": "", "pdf": "./Vendas/Carros/IZE6I79.pdf" },
+      { "id": "IZG5F32", "descricao":"Carro IZG5F32", "imagem": "", "pdf": "./Vendas/Carros/IZG5F32.pdf" },
+      { "id": "JBO0E75", "descricao":"Carro JBO0E75", "imagem": "", "pdf": "./Vendas/Carros/JBO0E75.pdf" },
+      { "id": "JBD6C54", "descricao":"Carro JBD6C54", "imagem": "", "pdf": "./Vendas/Carros/JBD6C54.pdf" },
+      { "id": "TRC8G55", "descricao":"Carro TRC8G55", "imagem": "", "pdf": "./Vendas/Carros/TRC8G55.pdf" },
+      { "id": "TRG6E78", "descricao":"Carro TRG6E78", "imagem":"",  "pdf": "./Vendas/Carros/TRG6E78.pdf" },
+      { "id": "TRG6F11", "descricao":"Carro TRG6F11", "imagem":"",  "pdf": "./Vendas/Carros/TRG6F11.pdf" },
+      { "id": "TRG6F43", "descricao":"Carro TRG6F43", "imagem":"",  "pdf": "./Vendas/Carros/TRG6F43.pdf" },
+      { "id": "TRG6F60", "descricao":"Carro TRG6F60", "imagem":"",  "pdf": "./Vendas/Carros/TRG6F60.pdf" },
+      { "id": "TRG6G72", "descricao":"Carro TRG6G72", "imagem":"",  "pdf": "./Vendas/Carros/TRG6G72.pdf" },
+      { "id": "TRG6G73", "descricao":"Carro TRG6G73", "imagem":"",  "pdf": "./Vendas/Carros/TRG6G73.pdf" },
+      { "id": "TRG6G75", "descricao":"Carro TRG6G75", "imagem":"",  "pdf": "./Vendas/Carros/TRG6G75.pdf" },
+      { "id": "TRG6G80", "descricao":"Carro TRG6G80", "imagem":"",  "pdf": "./Vendas/Carros/TRG6G80.pdf" },
+      { "id": "TRG6G84", "descricao":"Carro TRG6G84", "imagem":"",  "pdf": "./Vendas/Carros/TRG6G84.pdf" },
+      { "id": "TRG6G97", "descricao":"Carro TRG6G97", "imagem":"",  "pdf": "./Vendas/Carros/TRG6G97.pdf" }
+
+    
     ]
   },
   "vendas_motos": {
